@@ -83,12 +83,13 @@ public class NamesrvStartup {
 
 
     public static NamesrvController main0(String[] args) {
+        //设置Rocketmq版本号
         System.setProperty(RemotingCommand.RemotingVersionKey, Integer.toString(MQVersion.CurrentVersion));
-
+        // 设置数据发送缓冲区大小
         if (null == System.getProperty(NettySystemConfig.SystemPropertySocketSndbufSize)) {
             NettySystemConfig.SocketSndbufSize = 2048;
         }
-
+        // 设置数据接收缓冲区大小
         if (null == System.getProperty(NettySystemConfig.SystemPropertySocketRcvbufSize)) {
             NettySystemConfig.SocketRcvbufSize = 1024;
         }
@@ -246,7 +247,7 @@ root     122841 122839  0  2016 ?        02:27:23 /opt/jdk/jdk1.7.0_71/bin/java 
 
             MixAll.printObjectProperties(log, namesrvConfig);
             MixAll.printObjectProperties(log, nettyServerConfig);
-
+            // NameServerController是NameServer核心类
             final NamesrvController controller = new NamesrvController(namesrvConfig, nettyServerConfig);
             boolean initResult = controller.initialize();
             if (!initResult) {

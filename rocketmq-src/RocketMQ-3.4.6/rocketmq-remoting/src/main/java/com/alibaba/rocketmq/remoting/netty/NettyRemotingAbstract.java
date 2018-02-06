@@ -348,7 +348,16 @@ public abstract class NettyRemotingAbstract {
         }
     }
 
-
+    /**
+     * 真正发送请求的类
+     * @param channel
+     * @param request
+     * @param timeoutMillis
+     * @return
+     * @throws InterruptedException
+     * @throws RemotingSendRequestException
+     * @throws RemotingTimeoutException
+     */
     public RemotingCommand invokeSyncImpl(final Channel channel, final RemotingCommand request,
             final long timeoutMillis) throws InterruptedException, RemotingSendRequestException,
             RemotingTimeoutException {

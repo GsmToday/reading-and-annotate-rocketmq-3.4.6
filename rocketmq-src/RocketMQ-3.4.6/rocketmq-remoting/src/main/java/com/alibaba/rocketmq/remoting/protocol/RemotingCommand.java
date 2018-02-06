@@ -16,12 +16,13 @@
  */
 package com.alibaba.rocketmq.remoting.protocol;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import ch.qos.logback.classic.Logger;
+//import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.rocketmq.remoting.CommandCustomHeader;
 import com.alibaba.rocketmq.remoting.annotation.CFNotNull;
 import com.alibaba.rocketmq.remoting.common.RemotingHelper;
 import com.alibaba.rocketmq.remoting.exception.RemotingCommandException;
-import org.slf4j.Logger;
+//import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
@@ -43,7 +44,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  */ //该类的encode和decode完成通信报文的序列化和反序列化
 public class RemotingCommand {
-    private static final Logger log = LoggerFactory.getLogger(RemotingHelper.RemotingLogName);
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(RemotingHelper.RemotingLogName);
     public static String RemotingVersionKey = "rocketmq.remoting.version";
     public static final String SERIALIZE_TYPE_PROPERTY = "rocketmq.serialize.type";
     public static final String SERIALIZE_TYPE_ENV = "ROCKETMQ_SERIALIZE_TYPE";
@@ -69,9 +70,12 @@ public class RemotingCommand {
     //"extFields":{"topic":"yyztest2","queueId":"3","consumerGroup":"yyzGroup2","commitOffset":"28"}
     private HashMap<String, String> extFields;
 
-    //例如CONSUMER_SEND_MSG_BACK消息，customHeader为 ConsumerSendMsgBackRequestHeader 填充见consumerSendMessageBack
-    //header data
-    private transient CommandCustomHeader customHeader; //例如CONSUMER_SEND_MSG_BACK消息，customHeader 填充见 MQClientAPIImpl.consumerSendMessageBack
+    /**
+     * header data
+     * 例如CONSUMER_SEND_MSG_BACK消息，
+     * customHeader 为ConsumerSendMsgBackRequestHeader  填充见 MQClientAPIImpl.consumerSendMessageBack
+     */
+    private transient CommandCustomHeader customHeader;
 
     private static final Map<Class<? extends CommandCustomHeader>, Field[]> clazzFieldsCache =
             new HashMap<Class<? extends CommandCustomHeader>, Field[]>();
@@ -131,6 +135,9 @@ public class RemotingCommand {
         return annotation;
     }
 
+    /**
+     * body部分
+     */
     private transient byte[] body;
 
     protected RemotingCommand() {

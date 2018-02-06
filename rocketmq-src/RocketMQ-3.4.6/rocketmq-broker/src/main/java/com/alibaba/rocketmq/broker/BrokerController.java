@@ -562,7 +562,7 @@ public class BrokerController {
         }
 
         this.registerBrokerAll(true, false);
-
+        // 每个Broker会每间隔30s向NameSrv更新自身topic信息
         this.scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 
             @Override

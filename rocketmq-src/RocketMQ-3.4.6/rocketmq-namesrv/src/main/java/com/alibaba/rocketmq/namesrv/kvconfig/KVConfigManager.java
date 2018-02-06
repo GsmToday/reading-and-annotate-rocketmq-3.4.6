@@ -32,6 +32,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 
 /**
+ * KVConfigManager是配置文件，默认读取用户目录下的配置文件
  * @author shijia.wxr
  */
 public class KVConfigManager {

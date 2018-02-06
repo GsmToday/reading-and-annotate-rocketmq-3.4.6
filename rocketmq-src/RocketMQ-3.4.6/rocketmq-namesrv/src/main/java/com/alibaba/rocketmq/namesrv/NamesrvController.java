@@ -42,9 +42,13 @@ import java.util.concurrent.TimeUnit;
 public class NamesrvController {
     private static final Logger log = LoggerFactory.getLogger(LoggerName.NamesrvLoggerName);
     private final NamesrvConfig namesrvConfig;
+    //  通信层配置
     private final NettyServerConfig nettyServerConfig;
+    // 服务端通信层对象
     private RemotingServer remotingServer; //NettyRemotingServer
+    // 接收Broker连接事件
     private BrokerHousekeepingService brokerHousekeepingService;
+    // 服务端网络请求处理线程池
     private ExecutorService remotingExecutor;
 
 
@@ -66,7 +70,7 @@ public class NamesrvController {
 
     public boolean initialize() {
         this.kvConfigManager.load();
-
+        // 启动NettyRemotingServer实例
         this.remotingServer = new NettyRemotingServer(this.nettyServerConfig, this.brokerHousekeepingService);
 
         this.remotingExecutor =

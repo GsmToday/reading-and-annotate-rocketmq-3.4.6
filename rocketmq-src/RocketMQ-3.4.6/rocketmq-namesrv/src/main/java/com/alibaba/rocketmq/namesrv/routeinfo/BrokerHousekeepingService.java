@@ -27,6 +27,7 @@ import com.alibaba.rocketmq.remoting.ChannelEventListener;
 
 
 /**
+ * 负责Broker连接事件的处理，实现了ChannelEventListener，主要用来管理RouteInfoManager的brokerLiveTable。
  * @author shijia.wxr
  */
 public class BrokerHousekeepingService implements ChannelEventListener {
